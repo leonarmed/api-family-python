@@ -70,7 +70,6 @@ def get_member(id):
     if request.method == 'GET':
         member = jackson_family.get_member(id)
         if member is not None:
-            print(member,"/////////")
             return jsonify({
                 "first_name": member['first_name'],
                 "id": member['id'],
@@ -81,11 +80,7 @@ def get_member(id):
     elif request.method == 'DELETE':
         new_members = jackson_family.delete_member(id)
         limit_member = []
-        for member in new_members:
-            if len(limit_member) < 4:
-                print("Len:", len(limit_member))
-                limit_member.append(member)
-        return jsonify({"done":True, "data": limit_member}), 200
+        return jsonify({"done":True, "data": new_members}), 200
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
